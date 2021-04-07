@@ -1,0 +1,2 @@
+npx create-lwc-app my-app
+cd my-app
