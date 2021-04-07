@@ -1,2 +1,16 @@
+---------------------------------------------------------------------------------GIT HUB COMMAND CREATE----------------------------------------------------------------------------
+
+git init
+git add README.md
+git commit -m 'first commit'
+git remote add origin github.com
+git push -u origin master
+git checkout -b branch name
+git checkout branchname
+git status
+
+
+
+---------------------------------------------------------------------------------LWC OSS COMMAND CREATE-----------------------------------------------------------------------------
 npx create-lwc-app my-app
 cd my-app
