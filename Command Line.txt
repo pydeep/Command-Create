@@ -14,3 +14,54 @@ git status
 ---------------------------------------------------------------------------------LWC OSS COMMAND CREATE-----------------------------------------------------------------------------
 npx create-lwc-app my-app
 cd my-app
+npm run watch
+
+
+
+---------------------------------------------------------------------------Salesforce Integration With Node.js---------------------------------------------------------
+
+npm init -y
+
+npm install express jsforce dotenv --save 
+
+				index.js
+
+const express = require('express')
+const jsforce = require('jsforce')
+require(dotenv).config()
+const app = express()
+const PORT = 3001
+const{SF_LOGIN_URL, SF_USERNAME, SF_PASSWORD, SF_TOKEN} =process.env
+const conn = new jsforce.connection({
+	loginUrl:SF_LOGIN_URL
+})
+conn.login(SF_USERNAME, SF_PASSWORD+SF_TOKEN, (err, userInfor)=>{
+	if(err){
+		console.error(err);
+	}else{
+	   console.log("User Id"+userInfor.id);
+	   console.log("Org Id"+userInfor.organization);
+	}
+})
+app.get('/', (req, res)=>{
+	conn.query("Select Id, Name From Account",(err, result)=>{
+	if(err){
+	  res.send(err);
+	}
+	else{
+	  console.log("Total Records Size"+result.totalSize);
+	  res.json(result.records)	
+	}
+})
+	res.send("Salesforce Integration with node.js");
+}
+app.listen(PORT, ()=>{
+	console.log(`server is running at http://localhost:${PORT}`)
+})
+
+.env
+
+SF_LOGIN_URL = http://login.salesforce.com
+SF_USERNAME = pradeep1331998@gmail.com
+SF_PASSWORD = test!123
+SF_TOKEN = reset token
